@@ -29,10 +29,10 @@ func main() {
 	router.HandleFunc("/auth", jwtRoute.JwtTokenController).Methods(http.MethodPost)
 	protected := router.PathPrefix("/").Subrouter()
 	protected.Use(authMw.AuthenticationMW)
-	router.HandleFunc("/company/", setRoute.SetCompany).Methods(http.MethodPost)
-	protected.HandleFunc("/company/", setRoute.SetCompany).Methods(http.MethodPut)
+	protected.HandleFunc("/company/", setRoute.SetCompany).Methods(http.MethodPost)
+	router.HandleFunc("/company/", setRoute.SetCompany).Methods(http.MethodPut)
 	protected.HandleFunc("/company/", delRoute.DelCompany).Methods(http.MethodDelete)
-	protected.HandleFunc("/company/", getRoute.GetCompany).Methods(http.MethodGet)
+	router.HandleFunc("/company/", getRoute.GetCompany).Methods(http.MethodGet)
 	//address := os.Getenv("SERVER_ADDR")
 	address := "0.0.0.0"
 	port := os.Getenv("SERVER_PORT")

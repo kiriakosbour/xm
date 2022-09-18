@@ -23,12 +23,12 @@ func CompanyServiceInit(database domain.CompanyCrudInterface, client domain.Help
 }
 func (c *CompanyService) CreateCompany(company domain.Company, id string) (string, error) {
 	newComp := domain.Company{}
-	location := c.HelperClient.IpapiRequest(c.HttpClientImp)
-	if location.CountryName != "Cyprus" {
-		log.Printf("Only calls from Cyprus are allowed the call was from %s", location.CountryName)
-		return "", errors.New("unauthorised country")
-	}
 	if id == "" {
+		location := c.HelperClient.IpapiRequest(c.HttpClientImp)
+		if location.CountryName != "Cyprus" {
+			log.Printf("Only calls from Cyprus are allowed the call was from %s", location.CountryName)
+			return "", errors.New("unauthorised country")
+		}
 		id = newComp.GenerateId(company)
 	}
 	err := c.DB.SetKey(company, id, time.Minute*60)
