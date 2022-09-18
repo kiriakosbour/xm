@@ -7,13 +7,13 @@ import (
 )
 
 type AuthenticationMw struct {
-	claimsDomain domain.JwtClaimsInt
+	claimsDomain domain.JwtClaimsInterface
 }
-type AuthenticationMwInt interface {
+type AuthenticationMechInt interface {
 	AuthenticationMW(next http.Handler) http.Handler
 }
 
-func AuthenticationMwInit(claims domain.JwtClaimsInt) *AuthenticationMw {
+func AuthenticationMwInit(claims domain.JwtClaimsInterface) *AuthenticationMw {
 	return &AuthenticationMw{claimsDomain: claims}
 }
 func (a *AuthenticationMw) AuthenticationMW(next http.Handler) http.Handler {

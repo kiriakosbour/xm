@@ -20,7 +20,7 @@ type Company struct {
 
 type CompanyCrudInterface interface {
 	GetKey(id string) (Company, error)
-	SetKey(value Company, id string, expiration time.Duration) (Company, error)
+	SetKey(value Company, id string, expiration time.Duration) error
 	DelKey(key string) error
 	GetAllValues() map[string]string
 }

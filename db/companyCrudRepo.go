@@ -41,6 +41,7 @@ func (r *CompanyCrudRepo) GetKey(id string) (domain.Company, error) {
 	company := domain.Company{}
 	client := r.initializeRedis().redisClient
 	val, err := client.Get(r.initializeRedis().ctx, id).Result()
+	log.Println(val)
 	if err == redis.Nil || err != nil {
 		log.Printf("Error on get key %s", err.Error())
 		return company, err
@@ -55,20 +56,21 @@ func (r *CompanyCrudRepo) GetKey(id string) (domain.Company, error) {
 }
 
 //SetKey save or upd value on redis
-func (r *CompanyCrudRepo) SetKey(value domain.Company, id string, expiration time.Duration) (domain.Company, error) {
-	company := domain.Company{}
+func (r *CompanyCrudRepo) SetKey(value domain.Company, id string, expiration time.Duration) error {
+	log.Println(value)
 	cacheEntry, err := json.Marshal(value)
 	if err != nil {
 		log.Printf("Error on marshalling %s", err.Error())
-		return company, err
+		return err
 	}
 	client := r.initializeRedis().redisClient
 	err = client.Set(r.initializeRedis().ctx, id, cacheEntry, expiration).Err()
+	log.Println(id)
 	if err != nil {
 		log.Printf("Error on initialization %s", err.Error())
-		return company, err
+		return err
 	}
-	return value, nil
+	return nil
 }
 
 //DelKey del key
