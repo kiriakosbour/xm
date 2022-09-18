@@ -1,0 +1,31 @@
+version: '3'
+services:
+  go:
+    depends_on:
+      - redis
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+  #    environment:
+  #      - TOPIC_ID=sendgrid-service-dev
+  #      - REDIS_HOST=redis
+  #      - REDIS_PORT=6379
+  #      - REDIS_AUTH=password
+  #    # environment:
+  #    #   - PORT=80
+  #    #   - BIND_INTERFACE=lo
+
+  redis:
+    image: redis:5-alpine
+    #    environment:
+    #      - DB_ADDR=redis:6379
+    #      - DB_PORT=6379
+    #      - DB_PASSWD=
+    ##      - DB_NAME=user_management_localdev
+    #      - BUCKET_NAME=report-builder-bucket-dev
+#    env_file:
+#      - .env
+    ports:
+      - "6379:6379"
