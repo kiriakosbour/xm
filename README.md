@@ -6,9 +6,7 @@ Accepts JSON input in the format:
 
 `{"username": "<user name>", "password": "<user password>"}`
 
-and returns JWT OAUTH 2/OIDC token with the username as a subject. The username and the password don't have to be verified, but should not accept empty strings. The JWT token should expire in one hour.
-
-It should return appropriate error status code if the JSON payload is not valid, or the username and password are not valid (are empty)
+and returns JWT OAUTH 2/OIDC token with the username as a subject. The JWT token expire in one hour.
 
 
 ### POST /company
@@ -20,7 +18,6 @@ Accepts  JSON document as payload, and Creates the company
 The response should be the id of the entry. It should return the appropriate error status code if the JWT token or the JSON payload are not valid or the country is not Cyprus.
 
 ### PUT /company
-
 
 Accepts  id as query param in the url in the format /company/?id=<id>
 
